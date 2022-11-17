@@ -1,0 +1,75 @@
+import { React, useState } from 'react'
+import { Button, Col, Container, Form, Row } from 'react-bootstrap'
+import { useNavigate } from "react-router-dom";
+export default function Forms() {
+  const [total, setTotal] = useState(0);
+  const [sisa, setSisa] = useState(0);
+  const [allValues, setAllValues] = useState({
+    harga: 0,
+    qty: 0,
+    bayar:0,
+  });
+  const changeHandler = e => {
+    setAllValues({ ...allValues, [e.target.name]: e.target.value })
+  }
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    setTotal(allValues.harga * allValues.qty)
+    setHarga(inputs.harga);
+    setQty(inputs.qty);
+  }
+  return (
+    <>
+            <Container id="Contact">
+                <Row>
+                    <Form onSubmit={handleSubmit}>
+                        <Row>
+                            <Col>
+                                <Form.Label >Harga</Form.Label>
+                                <Form.Control
+                                    type="number"
+                                    name="harga"
+                                    onChange={changeHandler}
+                                />
+
+                            </Col>
+                            <Col>
+                                <Form.Label >Qty</Form.Label>
+                                <Form.Control
+                                    type="number"
+                                    name="qty"
+                                    onChange={changeHandler}
+                                />
+                            </Col>
+                            
+                        </Row>
+                        <Row>
+                            <Col>
+                                <input type="submit" />
+
+                            </Col>
+                        </Row>
+                    </Form>
+                </Row>
+                {total >0 && (
+                <Container className="bg-light" >
+                
+                    <Row>
+                        <Col md={6} sm={6}>Harga</Col>
+                        <Col md={6} sm={6}>{allValues.harga}</Col> 
+                    </Row>
+                    <Row>
+                        <Col md={6} sm={6}>Qty</Col>
+                        <Col md={6} sm={6}>{allValues.qty}</Col>
+                    </Row>
+                    <Row>
+                    <Col md={6} sm={6}>Total</Col>
+                    <Col md={6} sm={6}>{total}</Col>
+                </Row>
+               
+                </Container>
+                )}
+            </Container>
+        </>
+  )
+}
